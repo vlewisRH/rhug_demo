@@ -1,0 +1,45 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: test-set
+  namespace: openshift-gitops
+  labels:
+    velero.io/exclude-from-backup: "false"
+spec:
+  generators:
+  - git:
+      repoURL: https://github.com/vlewisRH/rhug_demo.git
+      revision: main
+      directories:
+      - path: "apps/console-banner"
+  syncPolicy:
+    preserveResourcesOnDeletion: true
+  template:
+    metadata:
+      name: 'demo-app'
+      labels:
+        app: argo-apps
+        velero.io/exclude-from-backup: "false"
+    spec:
+      project: default
+      source:
+        path: apps/console-banner
+        repoURL: https://github.com/vlewisRH/rhug_demo.git
+        targetRevision: main
+        helm:
+          parameters:
+            - name: "cluster_name"
+              value: "test-app"
+      ignoreDifferences:
+      - group: '*'
+        kind: "Project"
+        jsonPointers:
+        - /metadata/annotations
+        - /metadata/labels
+      - group: '*'
+        kind: '*'
+        jqPathExpressions:
+        - .metadata | select(.name == "etcd")
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: openshift-gitops

@@ -1,8 +1,0 @@
-#!/usr/local/bin/ansible-playbook
----
-- name: Install Apps
-  hosts: localhost
-  vars_files:
-    - vars/all/main.yml
-  roles:
-    - install-apps
