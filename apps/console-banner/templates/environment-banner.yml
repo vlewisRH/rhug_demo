@@ -4,7 +4,7 @@ metadata:
  name: console-banner
 spec:
  # Banner Text:
- text: "Pivot OpenShift {{ upper .Values.cluster_name }}"
+ text: "OpenShift test cluster"
  # Other options are BannerBottom, BannerTopBottom
  location: {{ .Values.location }}
  # Hexcode for text color
