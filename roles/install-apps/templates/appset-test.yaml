@@ -9,7 +9,7 @@ spec:
   generators:
   - git:
       repoURL: https://github.com/vlewisRH/rhug_demo.git
-      revision: main
+      revision: test-branch
       directories:
       - path: "apps/console-banner"
   syncPolicy:
@@ -25,21 +25,11 @@ spec:
       source:
         path: apps/console-banner
         repoURL: https://github.com/vlewisRH/rhug_demo.git
-        targetRevision: main
+        targetRevision: test-branch
         helm:
           parameters:
             - name: "cluster_name"
               value: "test-app"
-      ignoreDifferences:
-      - group: '*'
-        kind: "Project"
-        jsonPointers:
-        - /metadata/annotations
-        - /metadata/labels
-      - group: '*'
-        kind: '*'
-        jqPathExpressions:
-        - .metadata | select(.name == "etcd")
       destination:
         server: https://kubernetes.default.svc
         namespace: openshift-gitops
