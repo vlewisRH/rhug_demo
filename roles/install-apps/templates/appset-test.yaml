@@ -4,7 +4,7 @@ metadata:
   name: test-set
   namespace: openshift-gitops
   labels:
-    velero.io/exclude-from-backup: "false"
+    apps: test-apps
 spec:
   generators:
   - git:
@@ -17,9 +17,9 @@ spec:
   template:
     metadata:
       name: 'demo-app'
+      namespace: banner-ns
       labels:
-        app: argo-apps
-        velero.io/exclude-from-backup: "false"
+        app: test-app
     spec:
       project: default
       source:
@@ -30,6 +30,13 @@ spec:
           parameters:
             - name: "cluster_name"
               value: "test-app"
+      syncPolicy:
+        automated:
+          selfHeal: true
+          prune: true
+        syncOptions:
+        - RespectIgnoreDifferences=true
+        - CreateNamespace=true
       destination:
         server: https://kubernetes.default.svc
-        namespace: openshift-gitops
+        namespace: default

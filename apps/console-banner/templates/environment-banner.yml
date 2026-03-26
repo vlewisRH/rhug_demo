@@ -6,7 +6,7 @@ spec:
  # Banner Text:
  text: "OpenShift test cluster"
  # Other options are BannerBottom, BannerTopBottom
- location: {{ .Values.location }}
+ location: "{{ .Values.location }}"
  # Hexcode for text color
  color: "{{ .Values.text_color }}"
  # Hexcode for banner background color
