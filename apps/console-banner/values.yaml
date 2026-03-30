@@ -1,6 +1,6 @@
 # Default values for console-banner.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
-background_color: '#FF0000' # blue
+background_color: '#00FF00' # blue
 text_color: '#FFFFFF' # white
-location: BannerBottom
+location: BannerTop
